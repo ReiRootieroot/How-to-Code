@@ -1,6 +1,6 @@
 ;; The first three lines of this file were inserted by DrRacket. They record metadata
 ;; about the language level of this file in a form that our tools can easily process.
-#reader(lib "htdp-beginner-abbr-reader.ss" "lang")((modname fs-starter) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f ())))
+#reader(lib "htdp-beginner-abbr-reader.ss" "lang")((modname |L1 fs-starter|) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 (require 2htdp/image)
 
 ;; fs-starter.rkt (type comments and examples)
@@ -25,7 +25,22 @@
 (define D5 (make-elt "D5" 0 (list F3)))
 (define D6 (make-elt "D6" 0 (list D4 D5)))
 
+(define (fn-for-elememt e)
+  (... (elt-name e) ;;String
+       (elt-data e) ;;Number
+       (fn-for-los (elt-subs e)) ;;ListofElement
+  )
+)
 
+(define (fn-for-los los)
+  (cond [(empty? los) (...)]
+        [(...
+          (fn-for-element (first los))
+          (fn-for-los (rest los))
+          )
+         ]
+   )
+)
 
 
 ;; Functions:
