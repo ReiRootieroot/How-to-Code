@@ -1,0 +1,31 @@
+Data definitions are a driving element in the design recipes.
+A data definition establishes the represent/interpret relationship between information and data:
+
+-Information in the program's domain is represented by data in the program.
+-Data in the program can be interpreted as information in the program's domain.
+
+A data definition must describe how to form (or make) data that satisfies the data definition and also how to tell whether a data value satisfies the data definition. It must also describe how to represent information in the program's domain as data and interpret a data value as information.
+
+So, for example, one data definition might say that numbers are used to represent the Speed of a ball. Another data definition might say that numbers are used to represent the Height of an airplane. So given a number like 6, we need a data definition to tell us how to interpret it: is it a Speed, or a Height or something else entirely. Without a data definition, the 6 could mean anything.
+
+1. A possible structure definition
+2. A type comment that defines a new type name and describes how to form data of that type.
+3. An interpretation that describes the correspondence between information and data.
+4. One or more examples of the data.
+5. A template for a 1 argument function operating on data of this type.
+
+One of the most important points in the course is that:
+-the structure of the information in the program's domain determines the kind of data definition used,
+-which in turn determines the structure of the templates and helps determine the function examples (check-expects),
+-and therefore the structure of much of the final program design.
+
+This summary table provides a quick reference to which kind of data definition to use for different information structures.
+
+When the form of the information to be represented...	Use a data definition of this kind
+is atomic										Simple Atomic Data
+is numbers within a certain range							Interval
+consists of a fixed number of distinct items						Enumeration
+is comprised of 2 or more subclasses, at least one of which is not a distinct item	Itemization
+consists of two or more items that naturally belong together				Compound data
+is naturally composed of different parts						References to other defined type
+is of arbitrary (unknown) size								self-referential or mutually referential

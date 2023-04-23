@@ -1,0 +1,8 @@
+Generative Recursion
+The template for generative recursion is:
+
+(define (genrec-fn d)
+  (cond [(trivial? d) (trivial-answer d)]
+        [else
+         (... d 
+              (genrec-fn (next-problem d)))]))

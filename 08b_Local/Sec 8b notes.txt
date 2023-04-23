@@ -1,0 +1,34 @@
+For a local expression:
+
+For each locally defined function or constant, rename it and all references to it to a globally unique name, and
+in the same step lift the local definition(s) to the top level with any existing global definitions, and
+in the same step replace the local expression with the body of the local in which all references to the defined functions and constants have been renamed.
+For example:
+
+(define b 1)
+(+ b
+   (local [(define b 2)]
+     (* b b))
+   b)
+                        ;b evaluates to its defined value, 1
+
+
+(define b 1)
+(+ 1
+   (local [(define b 2)]
+     (* b b))
+   b)
+                        ; since b is a locally-defined constant,
+                        ;it is renamed to a globally unique name b_0
+                        ;the local definition of b_0 is lifted to
+                        ;the top level and the entire local expression
+                        ;is replaced by its body
+
+(define b 1)
+(define b_0 2)          ;---this renamed define was lifted
+
+(+ 1
+  (* b_0 b_0)           ;---entire local replaced by renamed body
+  b)
+
+                        ;evaluation continues normally from this point

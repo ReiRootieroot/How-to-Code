@@ -1,0 +1,14 @@
+For a shared expression:
+
+The evaluation of shared is truly one of the deep mysteries of the universe. There are two very different ways to describe the evaluation rules.
+
+One cannot be described exactly in terms of BSL (or ISL), but informally goes as follows:
+
+Each of the variables is defined as a constant with a special unique dummy value.
+Then the expressions are evaluated.
+Then each of the constants has its value change to the corresponding value. This is the part we have no words for in BSL or ISL, it is called mutation.
+Finally each of those values is traversed and each time one of the dummy values appears it is replaced in-situ by the corresponding value. (A different form of mutation.)
+This evaluation rule for shared is cumbersome but goes beyond what we know
+
+For further reading, please read "The Why of Y":
+https://www.dreamsongs.com/Files/WhyOfY.pdf
