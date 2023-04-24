@@ -1,6 +1,8 @@
-Built-In Abstract Functions
-ISL and ASL have the following built-in abstract functions.
+# Built-In Abstract Functions
 
+ISL and ASL have the following built-in abstract functions:
+
+```scheme
 (@signature Natural (Natural -> X) -> (listof X))
 ;; produces (list (f 0) ... (f (- n 1)))
 (define (build-list n f) ...)
@@ -29,3 +31,4 @@ ISL and ASL have the following built-in abstract functions.
 (@signature (X Y -> Y) Y (listof X) -> Y)
 ;; (foldl f base (list x-1 ... x-n)) = (f x-n ... (f x-1 base))
 (define (foldl f base lox) ...)
+```

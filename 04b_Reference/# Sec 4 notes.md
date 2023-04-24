@@ -1,11 +1,15 @@
-When the information in the program's domain is of arbitrary size, a well-formed self-referential (or mutually referential) data definition is needed.
+## Self-referential Data Definition
 
-In order to be well-formed, a self-referential data definition must:
+When the information in the program's domain is of arbitrary size, a well-formed self-referential (or mutually referential) data definition is needed. In order to be well-formed, a self-referential data definition must:
 
-(i) have at least one case without self reference (the base case(s))
-(ii) have at least one case with self reference
+- have at least one case without self-reference (the base case(s))
+- have at least one case with self-reference
+
 The template contains a base case corresponding to the non-self-referential clause(s) as well as one or more natural recursions corresponding to the self-referential clauses.
 
+### Example 1: List of Strings
+
+```racket
 ;; ListOfString is one of:
 ;;  - empty
 ;;  - (cons String ListOfString)
@@ -15,7 +19,6 @@ The template contains a base case corresponding to the non-self-referential clau
 (define LOS-2 (cons "a" empty))
 (define LOS-3 (cons "b" (cons "c" empty)))
 
-#;
 (define (fn-for-los los)
   (cond [(empty? los) (...)]                   ;BASE CASE
         [else (... (first los)                 ;String
@@ -28,15 +31,17 @@ The template contains a base case corresponding to the non-self-referential clau
 ;;  - atomic distinct: empty
 ;;  - compound: (cons String ListOfString)
 ;;  - self-reference: (rest los) is ListOfString
+```
 
+### Example 2: List of Dots
 
-In some cases a types comment can have both self-reference and reference to another type.
-
+```racket
 (define-struct dot (x y))
 ;; Dot is (make-dot Integer Integer)
 ;; interp. A dot on the screen, w/ x and y coordinates.
+
 (define D1 (make-dot 10 30))
-#;
+
 (define (fn-for-dot d)
   (... (dot-x d)   ;Integer
        (dot-y d))) ;Integer
@@ -47,9 +52,10 @@ In some cases a types comment can have both self-reference and reference to anot
 ;;  - empty
 ;;  - (cons Dot ListOfDot)
 ;; interp. a list of Dot
+
 (define LOD1 empty)
 (define LOD2 (cons (make-dot 10 20) (cons (make-dot 3 6) empty)))
-#;
+
 (define (fn-for-lod lod)
   (cond [(empty? lod) (...)]
         [else
@@ -61,5 +67,5 @@ In some cases a types comment can have both self-reference and reference to anot
 ;;  - atomic distinct: empty
 ;;  - compound: (cons Dot ListOfDot)
 ;;  - reference: (first lod) is Dot 
-;;  - self-reference: (rest lod) is ListOfDo
-
+;;  - self-reference: (rest lod) is ListOfDot
+```
