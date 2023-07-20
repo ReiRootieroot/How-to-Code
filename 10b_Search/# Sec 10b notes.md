@@ -56,12 +56,12 @@ Let's blend this template with the generative recursion template. The generative
            (genrec-fn (next-problem d)))))
 ```
 
-Since we know that `solve--bd` must generate a `(listof Board)` to pass to `solve--lobd`, we must blend the template into the `solve--bd` function. Then we would have (the red part was changed):
+Since we know that `solve--bd` must generate a `(listof Board)` to pass to `solve--lobd`, we must blend the template into the `solve--bd` function. Then we would have:
 
 ```scheme
 (define (solve bd)
   (local [(define (solve--bd bd)
-            (if (solved? bd)
+            (if (solved? bd) ;;GENERATIVE RECURSION
                 bd
                 (solve--lobd (next-boards bd))))
           (define (solve--lobd lobd)
@@ -93,22 +93,22 @@ Lastly, we need to blend in the template for backtracking search. The template i
     (fn-for-x x)))
 ```
 
-We need to blend the template for `fn-for-lox` from above into the function `solve-lobd`. The changes are in red:
+We need to blend the template for `fn-for-lox` from above into the function `solve--lobd`. The changes are marked with *:
 
 ```scheme
 (define (solve bd)
-  (local [(define (solve--bd bd)
+  (local [(define (*solve--bd* bd)
             (if (solved? bd)
                 bd
-                (solve--lobd (next-boards bd))))
-          (define (solve--lobd lobd)
+                (*solve--lobd* (next-boards bd))))
+          (define (*solve--lobd* lobd)
             (cond [(empty? lobd) false]
                   [else
                    (local [(define try (solve--bd (first lobd)))]
 
                         (if (not (false? try))
                             try
-                            (solve--lobd (rest lobd))))]))]
+                            (*solve--lobd* (rest lobd))))]))]
     (solve--bd bd)))
 ```
 
@@ -119,22 +119,22 @@ The template allows the `solve--lobd` function to do the following:
 - If the outcome of the `try` is not `false` (i.e., `(not (false? try))`), then produce that outcome because it means the board has been solved.
 - If the outcome is `false`, then recurse and try the rest of the list (i.e., `(solve--lobd (rest lobd))`).
 
-Now we have the complete template below. The arbitrary-arity tree template is underlined in blue. The generative recursion template is in red. And the backtracking search template is in green:
+Now we have the complete template below. Using the arbitrary-arity tree template as the base, the generative recursion template and the backtracking search template is in green:
 
 ```scheme
 (define (solve bd)
   (local [(define (solve--bd bd)
-            (if (solved? bd)
+            (if (solved? bd) ;;GENERATIVE RECURSION
                 bd
                 (solve--lobd (next-boards bd))))
           (define (solve--lobd lobd)
             (cond [(empty? lobd) false]
                   [else
                    (local [(define try (solve--bd (first lobd)))]
-
-                        (if (not (false? try))
+                        (if (not (false? try)) ;;BACKTRACKING SEARCH
                             try
-                            (solve--lobd (rest lobd))))]))]
+                            (solve--lobd (rest lobd)))
+                   )]))]
     (solve--bd bd)))
 ```
 
