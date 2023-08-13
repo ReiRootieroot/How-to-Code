@@ -62,8 +62,8 @@ Since we know that `solve--bd` must generate a `(listof Board)` to pass to `solv
 (define (solve bd)
   (local [(define (solve--bd bd)
             (if (solved? bd) ;;GENERATIVE RECURSION
-                bd
-                (solve--lobd (next-boards bd))))
+                bd           ;;
+                (solve--lobd (next-boards bd)))) ;;
           (define (solve--lobd lobd)
             (cond [(empty? lobd) (...)]
                   [else
@@ -74,9 +74,10 @@ Since we know that `solve--bd` must generate a `(listof Board)` to pass to `solv
 
 Notice the following:
 
-`bd-subs` is changed to `next-boards` because it suggests that we are generating new boards.
-`trivial?` from the generative recursion template is changed to `solved?` because the trivial case (i.e., the case where the recursion should stop at) is when the board is solved.
-`trivial-answer` from the generative recursion template is omitted because, in this case, the trivial answer is the board that is solved, which is represented by `bd`.
+- `bd-subs` is changed to `next-boards` because it suggests that we are generating new boards.
+- `trivial?` from the generative recursion template is changed to `solved?` because the trivial case (i.e., the case where the recursion should stop at) is when the board is solved.
+- `trivial-answer` from the generative recursion template is omitted because, in this case, the trivial answer is the board that is solved, which is represented by `bd`.
+
 Lastly, we need to blend in the template for backtracking search. The template is:
 
 ```scheme
@@ -130,10 +131,10 @@ Now we have the complete template below. Using the arbitrary-arity tree template
           (define (solve--lobd lobd)
             (cond [(empty? lobd) false]
                   [else
-                   (local [(define try (solve--bd (first lobd)))]
-                        (if (not (false? try)) ;;BACKTRACKING SEARCH
-                            try
-                            (solve--lobd (rest lobd)))
+                   (local [(define try (solve--bd (first lobd)))] ;;BACKTRACKING SEARCH
+                        (if (not (false? try))          ;;
+                            try                         ;;
+                            (solve--lobd (rest lobd)))  ;;
                    )]))]
     (solve--bd bd)))
 ```
