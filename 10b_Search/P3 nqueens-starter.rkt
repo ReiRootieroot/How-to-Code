@@ -1,6 +1,6 @@
 ;; The first three lines of this file were inserted by DrRacket. They record metadata
 ;; about the language level of this file in a form that our tools can easily process.
-#reader(lib "htdp-intermediate-lambda-reader.ss" "lang")((modname nqueens-starter) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
+#reader(lib "htdp-intermediate-lambda-reader.ss" "lang")((modname |P3 nqueens-starter|) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 (require spd/tags)
 
 ;; nqueens-starter.rkt
@@ -20,7 +20,7 @@ The n queens problem consists of finding a way to place n chess queens
 on a n by n chess board while making sure that none of the queens attack each
 other. 
 
-The BOARD consists of n^2 individual SQUARES arranged in 4 rows of 4 columns.
+The BOARD consists of n^2 individual SQUARES arranged in n rows of n columns. ;;was originally listed as 4x4 rows and columns.
 The colour of the squares does not matter. Each square can either be empty
 or can contain a queen.
 
