@@ -103,3 +103,20 @@ These examples of the progression of calls to the internal recursive function(s)
 To make the function tail recursive, all recursive calls must be in tail position. For functions that operate on flat structures (data that has only one reference cycle), this can be accomplished by using an accumulator to represent build up information about the final result through the series of recursive calls.  We often name these accumulators rsf but it is worth noting that some functions require more than one result so far accumulator (see average).
 
 Making functions that operate on data with more than one cycle in the graph (such as arbitrary-arity trees) usually requires the use of an accumulator to build up the data that still remains to be operated on. This is a worklist accumulator, often called todo.
+
+Referring back to the "skip1" function, the template for a tail recursive function is shown below:
+
+```scheme
+(define (skip1 lox0)
+  (local [(define (skip1 lox acc)
+            (cond [(empty? lox) (... acc)]
+                  [else
+                   (... acc
+                        (skip1 (rest lox)
+                               (... acc (first lox)))
+                        (first lox))]))]
+
+    (skip1 lox0 ...)))
+```
+
+Note that the element being called is the "rest of" lox, NOT the first lox. Hence, the program then can discover how many operations are required in the list and allocate the amount of space needed for that operation. Compare that with the typical accumulator template of calling the first element ("first lox"), where the operations would be stacked on top of each other recursively until the end of the list is reached (which the program doesn't know how big the list is).
