@@ -36,12 +36,14 @@ ISL and ASL have the following built-in abstract functions:
 The "lambda" function can be  used to shorthand the built-in functions into one line without needing to define variables and functions across multiple lines. The function is read as seen below as per Racket documentation:
 
 ```scheme
-(lambda (variable variable ...) expression)
+(lambda (variable variable ...) expression_with_variable)
 
 ;; Creates a function that takes as many arguments as given variables, and whose body is expression.
 ```
 
 Essentially, "lambda" allows to be as any parameters to be passed and processed without defining said parameter. Notice that parameters that could be passed also includes functions- this means that *functions do not need to be defined before passing*. Optimizing code and overall formatting is siginificantly easier with the use of "lambda" function, especially functions are used within the scope of another function only and do not need to be defined globally despite being used once.
+
+To quickly read the syntax, just understand that "define" and the function name is replaced with "lambda". The function being defined with lambda *is nameless*.
 
 As an example, these two codes perform the same function:
 
